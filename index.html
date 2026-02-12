@@ -512,28 +512,28 @@
     <!-- PHOTO GALLERY -->
     <div class="section-card">
       <div class="section-title">📸 Us, Obviously</div>
-      <div class="photo-grid">
-        <div class="photo-slot large">
-          <span>📷</span>
-          <span class="photo-label">Add your fav photo here</span>
-        </div>
-        <div class="photo-slot">
-          <span>🤳</span>
-          <span class="photo-label">Selfie moment</span>
-        </div>
-        <div class="photo-slot">
-          <span>🌅</span>
-          <span class="photo-label">Golden hour us</span>
-        </div>
-        <div class="photo-slot">
-          <span>🍜</span>
-          <span class="photo-label">That time we ate everything</span>
-        </div>
-        <div class="photo-slot large">
-          <span>💑</span>
-          <span class="photo-label">Best photo placeholder ever</span>
-        </div>
-      </div>
+       <div class="photo-grid">
+         <div class="photo-slot large">
+           <img src="images/IMG_7806%202.JPG" alt="Add your fav photo here">
+           <span class="photo-label">Add your fav photo here</span>
+         </div>
+         <div class="photo-slot">
+           <img src="images/IMG_1338.jpeg" alt="Selfie moment">
+           <span class="photo-label">Selfie moment</span>
+         </div>
+         <div class="photo-slot">
+           <img src="images/IMG_8926.JPG" alt="Golden hour us">
+           <span class="photo-label">Golden hour us</span>
+         </div>
+         <div class="photo-slot">
+           <img src="images/bc7332a7-c05a-481e-8ad0-bb05af23ee6c.JPG" alt="That time we ate everything">
+           <span class="photo-label">That time we ate everything</span>
+         </div>
+         <div class="photo-slot large">
+           <img src="images/IMG_5685.JPG" alt="Best photo placeholder ever">
+           <span class="photo-label">Best photo placeholder ever</span>
+         </div>
+       </div>
     </div>
 
     <!-- ITINERARY -->
@@ -867,6 +867,31 @@ window.addEventListener('load', () => {
 @keyframes bigBounce {
   from { transform: scale(1) rotate(-2deg); }
   to { transform: scale(1.05) rotate(2deg); }
+}
+
+ /* === Photo grid: make images fill the tiles nicely === */
+.photo-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Put the label on top of the photo */
+.photo-slot .photo-label {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  margin-top: 0;
+  padding: 6px 10px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.70);
+  backdrop-filter: blur(8px);
+  opacity: 1;
+  z-index: 2;
 }
 </style>
 
