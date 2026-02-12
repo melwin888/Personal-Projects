@@ -139,12 +139,12 @@
     font-weight: 900;
     cursor: pointer;
     transition: opacity 0.25s ease;
-    position: fixed;
+    position: fixed; /* Fixed relative to Viewport (when in body) */
     z-index: 999;
     white-space: nowrap;
     user-select: none;
     pointer-events: auto;
-    /* start somewhere safe; JS will place it next to YES */
+    /* Start safely off-screen or top-left, JS will move it */
     left: 16px;
     top: 16px;
   }
@@ -492,10 +492,8 @@
 </head>
 <body>
 
-<!-- CONFETTI -->
 <canvas id="confetti-canvas"></canvas>
 
-<!-- ======== PAGE 1: THE QUESTION ======== -->
 <div id="page1">
   <div class="floating-hearts" id="floatingHearts"></div>
 
@@ -516,10 +514,8 @@
   </div>
 </div>
 
-<!-- ======== YES BURST LAYER ======== -->
 <div id="yes-burst"></div>
 
-<!-- ======== PAGE 2: VALENTINE'S DAY ======== -->
 <div id="page2">
 
   <div class="page2-hero">
@@ -530,7 +526,6 @@
 
   <div class="content-wrapper">
 
-    <!-- LOVE LETTER -->
     <div class="section-card">
       <div class="section-title">💌 A Little Note</div>
       <div class="letter-text">
@@ -542,7 +537,6 @@
       </div>
     </div>
 
-    <!-- PHOTO GALLERY -->
     <div class="section-card">
       <div class="section-title">📸 Us, Obviously</div>
       <div class="photo-grid">
@@ -569,7 +563,6 @@
       </div>
     </div>
 
-    <!-- ITINERARY -->
     <div class="section-card">
       <div class="section-title">🗓️ Our Day — Feb 14th</div>
       <div class="timeline">
@@ -830,6 +823,13 @@ noBtn.addEventListener('pointerdown', (e) => {
 
 // Initial placement — wait for fonts so widths are correct
 window.addEventListener('load', () => {
+  // === CRITICAL FIX ===
+  // Move the No button to the body tag.
+  // This detaches it from the .question-card container which has CSS transforms.
+  // Now "position: fixed" will truly be relative to the viewport, preventing the
+  // button from flying off-screen when coordinates are calculated.
+  document.body.appendChild(noBtn);
+
   noBtn.style.display = 'inline-flex';
   noBtn.style.opacity = '1';
 
@@ -887,6 +887,9 @@ function triggerYesBurst() {
   // Fade out page1
   page1.style.opacity = '0';
   page1.style.pointerEvents = 'none';
+
+  // Also hide the moved noBtn so it doesn't stay on top of the burst
+  noBtn.style.display = 'none';
 
   // Animate tiles popping in
   tiles.forEach((tile, i) => {
@@ -992,15 +995,6 @@ function launchConfetti() {
   }
   draw();
 }
-
-// Initial NO button placement — wait for layout then place it right next to YES
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const yesRect = yesBtn.getBoundingClientRect();
-    noBtn.style.left = (yesRect.right + 20) + 'px';
-    noBtn.style.top  = yesRect.top + 'px';
-  }, 100);
-});
 </script>
 
 <style>
